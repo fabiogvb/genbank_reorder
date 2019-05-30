@@ -2,11 +2,11 @@
 #==============================================================================
 #title           :genbank_reorder
 #description     :This script will reorder the contigs in GenBank format, including the annotated features, based on an other reference genbank file.
-#author		       :Fabio Mota
-#source		       :http://github.com/fabiogvb
+#author		 :Fabio Mota
+#source		 :http://github.com/fabiogvb/genbank_reorder
 #date            :20190524
 #version         :1.0
-#usage		       :./genbank_reorder.sh -r reference.genbank -i input.unordered.genbank -o output.reordered.genbank -u yes (default:no OPTIONAL union all output contigs in a unique artifitial contig) -k yes (default:no OPTIONAL keep all unnecessary files and log files)
+#usage		 :./genbank_reorder.sh -r reference.genbank -i input.unordered.genbank -o output.reordered.genbank -u yes (default:no OPTIONAL union all output contigs in a unique artifitial contig) -k yes (default:no OPTIONAL keep all unnecessary files and log files)
 #notes           :Install readseq, mauve-aligner and emboss packages before use this script.
 #bash_version    :4.4.19(1)-release
 #==============================================================================
@@ -64,7 +64,7 @@ then
    helpFunction
 fi
 
-#Checking if output file exist and if the current director is writeable.
+#Checking if output file exist and if the current directory is writeable.
 if [[ -f $output_file ]]; then
   echo "Error: $output_file already existing! Choose another output file name or delete the file $output_file."
   exit 1
@@ -80,12 +80,12 @@ readseq -a -f8 $reference_file > $reference_file.fasta
 echo "$reference_file converted."
 readseq -a -f8 $input_file > $input_file.fasta
 echo "$input_file converted."
-# Spliting Genbank input file
+# Splitting Genbank input file
 echo -e "Splitting GenBank input file $input_file..."
 seqretsplit -auto -sequence $input_file -osformat2 genbank -feature 1> /dev/null 2> seqretsplit.log
 
 
-# Running Maueve contigs aligner
+# Running Maueve contig aligner
 echo -e "Running contig aligner. Please wait some minutes... "
 java -Xmx500m -cp /usr/share/java/Mauve.jar org.gel.mauve.contigs.ContigOrderer -output results_dir -ref $reference_file.fasta -draft $input_file.fasta > mauve.log &
 
@@ -114,38 +114,28 @@ done
 echo "THE BEST(LAST) ALIGNMENT FOUND! ALIGNMENT $counter"
 
 
-# Discover the contig order and if contig is in reverse strand based on last alignment tabular file
+# Discovering the contig order and if contig is in reverse strand based on the last alignment tabular file
 #
 echo "Reordering contigs..."
 tabular="$last";
 #tabular="results_dir/alignment2/GCF_001646655.1_ASM164665v1_genomic.gbff_contigs.tab"
 #statements: 0-nontargets lines before ^Ordered contigs, 1-target lines, 2- lines after targets
 statements=0
-#hash use contig as key and complement or forward as value
 while IFS= read -r line
 do
     if [[ "$line" =~ conflicting.* ]] || [[ "$line" =~ ^Ordered.* ]]; then
       statements=$(($statements+1))
     fi
     if [[ "$statements" -eq 1 ]] && [[ "$line" =~ ^contig.* ]]; then
-      #echo "$line"
-
-      # Spliting line in columns
-      #for index in "${!array[@]}"
-      #do
-      #    echo "$index ${array[index]}"
-      #done
       IFS=$'\t' read -r -a array <<< $line
       if [[ "${array[3]}" == "complement" ]]; then
         contig=$( echo "${array[1]}" | tr -s '[:upper:]'  '[:lower:]')
-        #echo "reverse $contig"
         seqret -auto -sequence $contig.genbank -outseq $contig.reverse.genbank -sformat1 genbank -osformat2 genbank -feature -sreverse1
         cat $contig.reverse.genbank >> $output_file
         rm $contig.reverse.genbank
       fi
       if [[ "${array[3]}" == "forward" ]]; then
         contig=$( echo "${array[1]}" | tr -s '[:upper:]'  '[:lower:]')
-        #echo "forward $contig"
         cat $contig.genbank >> $output_file
         rm $contig.genbank
       fi
@@ -160,9 +150,7 @@ if [[ "$union" =~ yes.* ]]; then
   echo "Artificial unique contig GenBank file (can be whole viewed with Artemis): \e[1munion.$output_file\e[0m"
 fi
 
-#Clean the java processes running
-#echo -e "Use kill for each process number below"
-#echo -e ""
+#Cleaning the java zumbie process still running
 tokill=$(echo " $(ps aux | grep Mauve | grep $input_file )" | awk '{ print $2 } ')
 IFS=' '
 read -a processes <<< "$tokill"
@@ -171,7 +159,7 @@ do
 kill -9 $process
 done
 
-# Clean all unnecessary files. Default (-k no)
+# Cleaning all unnecessary files. Default (-k no)
 if [[ "$keep" =~ yes.* ]]; then
   echo "All files were keeped in the current directory or results_dir directory."
 else
