@@ -37,6 +37,16 @@ chmod +x genbank_reorder.sh
 
 ./genbank_reorder.sh
 
+RUNNING EXAMPLE
+
+wget 'ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/900/455/725/GCA_900455725.1_50477_H01/GCA_900455725.1_50477_H01_genomic.gbff.gz'
+
+wget 'ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCA/001/646/655/GCA_001646655.1_ASM164665v1/GCA_001646655.1_ASM164665v1_genomic.gbff.gz'
+
+gunzip GCA_900455725.1_50477_H01_genomic.gbff.gz GCA_001646655.1_ASM164665v1_genomic.gbff.gz
+
+./genbank_reorder.sh -r GCA_900455725.1_50477_H01_genomic.gbff -i GCA_001646655.1_ASM164665v1_genomic.gbff -o output -u yes
+
 AUTHOR: Fabio Mota
 
 https://github.com/fabiogvb
