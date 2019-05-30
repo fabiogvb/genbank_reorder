@@ -8,7 +8,7 @@
 
 **Required parameters:**
 
-	**-r** Reference file in GenBank format with unique or multiple contigs. It will be used as reference to order the input file.
+	-r Reference file in GenBank format with unique or multiple contigs. It will be used as reference to order the input file.
 	-i Input file in GenBank format with multiple contigs. The contigs will be reordered using mauve-aligner and the reference_file.
 	-o Output file will be save with this name in this place.
 
