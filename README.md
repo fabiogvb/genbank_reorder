@@ -21,21 +21,22 @@
 
 **Install dependecies in your operation system:**
 
-For Debian or similar use: sudo apt-get install readseq mauve-aligner emboss
+For Debian or similar use:
 
-For CentOS or similar use: sudo yum install readseq mauve-aligner emboss
+	sudo apt-get install readseq mauve-aligner emboss
+For CentOS or similar use:
 
-For MacOS use: brew install readseq mauve-aligner emboss
+	sudo yum install readseq mauve-aligner emboss
+For MacOS use:
+
+	brew install readseq mauve-aligner emboss
 
 **Install Genbank Contig Reorder:**
 
-git clone https://github.com/fabiogvb/genbank_reorder
-
-cd genbank_reorder
-
-chmod +x genbank_reorder.sh
-
-./genbank_reorder.sh
+	git clone https://github.com/fabiogvb/genbank_reorder
+	cd genbank_reorder
+	chmod +x genbank_reorder.sh
+	./genbank_reorder.sh
 
 **EXAMPLE**
 
