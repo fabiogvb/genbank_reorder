@@ -118,7 +118,6 @@ echo "THE BEST(LAST) ALIGNMENT FOUND! ALIGNMENT $counter"
 #
 echo "Reordering contigs..."
 tabular="$last";
-#tabular="results_dir/alignment2/GCF_001646655.1_ASM164665v1_genomic.gbff_contigs.tab"
 #statements: 0-nontargets lines before ^Ordered contigs, 1-target lines, 2- lines after targets
 statements=0
 while IFS= read -r line
