@@ -86,7 +86,7 @@ seqretsplit -auto -sequence $input_file -osformat2 genbank -feature 1> /dev/null
 
 
 # Running Maueve contig aligner
-echo -e "Running contig aligner. Please wait some minutes... "
+echo -e "\e[1mRunning contig aligner. Please wait some minutes...\e[0m "
 java -Xmx500m -cp /usr/share/java/Mauve.jar org.gel.mauve.contigs.ContigOrderer -output results_dir -ref $reference_file.fasta -draft $input_file.fasta > mauve.log &
 
 
@@ -158,7 +158,7 @@ do
 kill -9 $process
 done
 
-# Cleaning all unnecessary files. Default (-k no)
+# Cleaning all unnecessary temporary files. Default (-k no)
 if [[ "$keep" =~ yes.* ]]; then
   echo  -e "All files were keeped in the current directory or results_dir directory."
 else
