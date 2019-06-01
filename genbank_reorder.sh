@@ -70,16 +70,16 @@ if [[ -f $output_file ]]; then
   exit 1
 fi
 if >> $output_file
-then echo -e "Start Running GenBank Contig Reorder..."
+then echo -e "\e[1mStart Running GenBank Contig Reorder...\e[0m"
 else -e "Error: write permission denied"; exit 1;
 fi
 
 # Converting GenBank to fasta files
 echo -e "Converting files..."
 readseq -a -f8 $reference_file > $reference_file.fasta
-echo "$reference_file converted."
+echo  -e "$reference_file converted."
 readseq -a -f8 $input_file > $input_file.fasta
-echo "$input_file converted."
+echo  -e "$input_file converted."
 # Splitting Genbank input file
 echo -e "Splitting GenBank input file $input_file..."
 seqretsplit -auto -sequence $input_file -osformat2 genbank -feature 1> /dev/null 2> seqretsplit.log
@@ -93,30 +93,30 @@ java -Xmx500m -cp /usr/share/java/Mauve.jar org.gel.mauve.contigs.ContigOrderer 
 # Loop to wait the last alignment ("best alignment") of Mauve and the the tabular contig order file $last
 counter=1
 f="results_dir/alignment${counter}/${input_file}_contigs.tab"
-echo "Waiting for the BEST(LAST) alignment:"
+echo -e  "Waiting for the BEST(LAST) alignment:"
 while true;
 do
-  echo "Running alignment $counter, aligning be patient..."
+  echo  -e "Running alignment $counter, aligning be patient..."
   sleep 5 ;
 	if [ -e $f ]; then
-	echo "Alignment $counter finished. Let's go to the next alignment..."
+	echo  -e "Alignment $counter finished. Let's go to the next alignment..."
 	sleep 5 ;
 	last="results_dir/alignment$counter/${input_file}_contigs.tab"
 	let counter++ ;
 	f="results_dir/alignment$counter/${input_file}_contigs.tab"
 	if [ ! -d results_dir/alignment$counter ]; then
   let counter-- ;
-  echo "Conclude the alignment $counter";
+  echo  -e "Concluded the alignment $counter";
 	break;
 fi
 fi
 done
-echo "THE BEST(LAST) ALIGNMENT FOUND! ALIGNMENT $counter"
+echo  -e "THE BEST(LAST) ALIGNMENT FOUND! ALIGNMENT $counter"
 
 
 # Discovering the contig order and if contig is in reverse strand based on the last alignment tabular file
 #
-echo "Reordering contigs..."
+echo -e "Reordering contigs..."
 tabular="$last";
 #statements: 0-nontargets lines before ^Ordered contigs, 1-target lines, 2- lines after targets
 statements=0
@@ -141,12 +141,12 @@ do
 
       fi
 done < "$tabular"
-echo "RESULTS"
-echo "Reordered contigs in GenBank format are in the file: \e[1m$output_file\e[0m "
+echo -e "\e[1mRESULTS\e[0m"
+echo -e "Reordered contigs in GenBank format are in the file: \e[1m$output_file\e[0m "
 # Running union to merge all contigs in a unique artificial chromosome that can be view with Artemis software
 if [[ "$union" =~ yes.* ]]; then
   union -sequence $output_file -outseq union.$output_file -osformat genbank -feature -auto
-  echo "Artificial unique contig GenBank file (can be whole viewed with Artemis): \e[1munion.$output_file\e[0m"
+  echo  -e "Artificial unique contig GenBank file (can be whole viewed with Artemis): \e[1munion.$output_file\e[0m"
 fi
 
 #Cleaning the java zumbie process still running
@@ -160,7 +160,7 @@ done
 
 # Cleaning all unnecessary files. Default (-k no)
 if [[ "$keep" =~ yes.* ]]; then
-  echo "All files were keeped in the current directory or results_dir directory."
+  echo  -e "All files were keeped in the current directory or results_dir directory."
 else
   rm -rf results_dir/ $reference_file.fasta $input_file.fasta *.genbank mauve.log
 fi
