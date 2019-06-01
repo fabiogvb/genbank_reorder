@@ -162,5 +162,5 @@ done
 if [[ "$keep" =~ yes.* ]]; then
   echo  -e "All files were keeped in the current directory or results_dir directory."
 else
-  rm -rf results_dir/ $reference_file.fasta $input_file.fasta *.genbank mauve.log
+  rm -rf results_dir/ $reference_file.fasta $input_file.fasta *.genbank mauve.log seqretsplit.log
 fi
