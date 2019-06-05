@@ -87,7 +87,7 @@ seqretsplit -auto -sequence $input_file -osformat2 genbank -feature 1> /dev/null
 
 # Running Maueve contig aligner
 echo -e "\e[1mRunning contig aligner. Please wait some minutes...\e[0m "
-java -Xmx500m -cp /usr/share/java/Mauve.jar org.gel.mauve.contigs.ContigOrderer -output results_dir -ref $reference_file.fasta -draft $input_file.fasta > mauve.log &
+xvfb-run java -Xmx500m -cp /usr/share/java/Mauve.jar org.gel.mauve.contigs.ContigOrderer -output results_dir -ref $reference_file.fasta -draft $input_file.fasta > mauve.log &
 
 
 # Loop to wait the last alignment ("best alignment") of Mauve and the the tabular contig order file $last
