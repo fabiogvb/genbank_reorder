@@ -102,7 +102,7 @@ f="results_dir/alignment${counter}/${input_file}_contigs.tab"
 echo -e  "Waiting for the BEST(LAST) alignment:"
 while true;
 do
-  if [[ ! $( ps aux | grep Mauve | grep $input_file ) =~ Mauve.* ]]; then echo -e "\e[31mError Mauve aborted by some reason. Take a look at mauve.log.\e[0m"; exit 1; fi
+  if [[ ! $( ps aux | grep Mauve | grep $input_file ) =~ Mauve.* ]]; then echo -e "\e[31mError: Mauve aborted for some reason. Take a look at the file mauve.log\e[0m"; exit 1; fi
   echo  -e "Running alignment $counter, aligning be patient..."
   sleep 5 ;
 	if [ -e $f ]; then
