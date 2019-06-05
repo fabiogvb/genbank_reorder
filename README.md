@@ -23,13 +23,13 @@
 
 For Debian or similar use:
 
-	sudo apt-get install git xvfb libcommons-cli-java readseq mauve-aligner emboss
+	sudo apt-get install git xvfb libcommons-cli-java readseq mauve-aligner emboss artemis
 For CentOS or similar use:
 
-	sudo yum install git xvfb libcommons-cli-java  readseq mauve-aligner emboss
+	sudo yum install git xvfb libcommons-cli-java  readseq mauve-aligner emboss artemis
 For MacOS use:
 
-	brew install git xvfb libcommons-cli-java readseq mauve-aligner emboss
+	brew install git xvfb libcommons-cli-java readseq mauve-aligner emboss artemis
 
 **Install Genbank Contig Reorder:**
 
@@ -44,6 +44,7 @@ For MacOS use:
 	wget -c 'ftp://ftp.ncbi.nlm.nih.gov/genomes/all/GCF/001/646/655/GCF_001646655.1_ASM164665v1/GCF_001646655.1_ASM164665v1_genomic.gbff.gz'
 	gunzip GCF_900455725.1_50477_H01_genomic.gbff.gz GCF_001646655.1_ASM164665v1_genomic.gbff.gz
 	./genbank_reorder.sh -r GCF_900455725.1_50477_H01_genomic.gbff -i GCF_001646655.1_ASM164665v1_genomic.gbff -o output.reordered -u yes
+	art union.output.reordered.gbff
 
 
 **AUTHOR:** Fabio Mota
