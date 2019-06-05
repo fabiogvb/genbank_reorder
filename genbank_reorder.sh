@@ -16,10 +16,10 @@
 
 if ! type "readseq" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'readseq' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install readseq\e[0m'"; exit 1; fi
 if ! type "mauve" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'mauve-aligner' program is not in PATH or is not installed.\e[0m 'Try \e[92msudo apt-get install mauve-aligner\e[0m'"; exit 1; fi
-if ! type "seqret" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
-if ! type "union" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
-if ! type "seqretsplit" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
-if ! type "xvfb-run" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'xvfb' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install xvfb\e[0m'"; exit 1; fi
+if ! type "seqret" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'seqret' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
+if ! type "union" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'union' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
+if ! type "seqretsplit" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'seqretsplit' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
+if ! type "xvfb-run" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'xvfb-run' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install xvfb\e[0m'"; exit 1; fi
 if [[ ! -f "/usr/share/java/commons-cli.jar" ]]; then echo -e "\e[31mThe 'libcommons-cli-java' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install libcommons-cli-java\e[0m'"; exit 1; fi
 if [[ ! -f "/usr/share/java/Mauve.jar" ]]; then echo -e "\e[31mThe 'mauve' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install mauve\e[0m'"; exit 1; fi
 
@@ -76,6 +76,9 @@ if >> $output_file
 then echo -e "\e[1mStart Running GenBank Contig Reorder...\e[0m"
 else -e "Error: write permission denied"; exit 1;
 fi
+#Checking if the reference and input files were found
+if [[ ! -f "$reference_file" ]]; then echo -e "\e[31mThe '$reference_file' file was not found.\e[0m"; exit 1; fi
+if [[ ! -f "$input_file" ]]; then echo -e "\e[31mThe '$input_file' file was not found.\e[0m"; exit 1; fi
 
 # Converting GenBank to fasta files
 echo -e "Converting files..."
@@ -99,6 +102,7 @@ f="results_dir/alignment${counter}/${input_file}_contigs.tab"
 echo -e  "Waiting for the BEST(LAST) alignment:"
 while true;
 do
+  if [[ ! $( ps aux | grep Mauve | grep colora ) =~ Mauve.* ]]; then echo -e "\e[31mError Mauve aborted by some reason. Take a look at mauve.log.\e[0m"; exit 1; fi
   echo  -e "Running alignment $counter, aligning be patient..."
   sleep 5 ;
 	if [ -e $f ]; then
