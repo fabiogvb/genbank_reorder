@@ -18,10 +18,10 @@ if ! type "readseq" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'readseq' p
 if ! type "mauve" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'mauve-aligner' program is not in PATH or is not installed.\e[0m 'Try \e[92msudo apt-get install mauve-aligner\e[0m'"; exit 1; fi
 if ! type "seqret" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
 if ! type "union" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
-if ! type "seqretsplit" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92mudo apt-get install emboss\e[0m'"; exit 1; fi
-if ! type "xvfb-run" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'xvfb' program is not in PATH or is not installed.\e[0m Try '\e[92mudo apt-get install xvfb\e[0m'"; exit 1; fi
-if [[ ! -f "/usr/share/java/commons-cli.jar" ]]; then echo -e "\e[31mThe 'libcommons-cli-java' program is not in PATH or is not installed.\e[0m Try '\e[92mudo apt-get install libcommons-cli-java\e[0m'"; exit 1; fi
-if [[ ! -f "/usr/share/java/Mauve.jar" ]]; then echo -e "\e[31mThe 'mauve' program is not in PATH or is not installed.\e[0m Try '\e[92mudo apt-get install mauve\e[0m'"; exit 1; fi
+if ! type "seqretsplit" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'emboss' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install emboss\e[0m'"; exit 1; fi
+if ! type "xvfb-run" > /dev/null 2>/dev/null; then echo -e "\e[31mThe 'xvfb' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install xvfb\e[0m'"; exit 1; fi
+if [[ ! -f "/usr/share/java/commons-cli.jar" ]]; then echo -e "\e[31mThe 'libcommons-cli-java' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install libcommons-cli-java\e[0m'"; exit 1; fi
+if [[ ! -f "/usr/share/java/Mauve.jar" ]]; then echo -e "\e[31mThe 'mauve' program is not in PATH or is not installed.\e[0m Try '\e[92msudo apt-get install mauve\e[0m'"; exit 1; fi
 
 helpFunction()
 {
