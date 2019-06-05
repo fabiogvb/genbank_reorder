@@ -23,13 +23,13 @@
 
 For Debian or similar use:
 
-	sudo apt-get install git readseq mauve-aligner emboss
+	sudo apt-get install git xvfb libcommons-cli-java readseq mauve-aligner emboss
 For CentOS or similar use:
 
-	sudo yum install git readseq mauve-aligner emboss
+	sudo yum install git xvfb libcommons-cli-java  readseq mauve-aligner emboss
 For MacOS use:
 
-	brew install git readseq mauve-aligner emboss
+	brew install git xvfb libcommons-cli-java readseq mauve-aligner emboss
 
 **Install Genbank Contig Reorder:**
 
