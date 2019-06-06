@@ -69,7 +69,7 @@ fi
 
 #Checking if output file exist and if the current directory is writeable.
 if [[ -f $output_file ]]; then
-  echo "Error: $output_file already existing! Choose another output file name or delete the file $output_file."
+  echo -e "Error: $output_file already existing! Choose another output file name or delete the file $output_file."
   exit 1
 fi
 if >> $output_file
@@ -121,8 +121,7 @@ done
 echo  -e "THE BEST(LAST) ALIGNMENT FOUND! ALIGNMENT $counter"
 
 
-# Discovering the contig order and if contig is in reverse strand based on the last alignment tabular file
-#
+# Discovering the contig order and if contig is on the reverse complement strand based on the last alignment tabular file
 echo -e "Reordering contigs..."
 tabular="$last";
 #statements: 0-nontargets lines before ^Ordered contigs, 1-target lines, 2- lines after targets
@@ -150,6 +149,7 @@ do
 done < "$tabular"
 echo -e "\e[1mRESULTS\e[0m"
 echo -e "Reordered contigs in GenBank format are in the file: \e[1m$output_file\e[0m "
+
 # Running union to merge all contigs in a unique artificial chromosome that can be view with Artemis software
 if [[ "$union" =~ yes.* ]]; then
   union -sequence $output_file -outseq union.$output_file -osformat genbank -feature -auto
