@@ -40,7 +40,7 @@ helpFunction()
    echo -e ""
    echo -e "\e[1mOptional parameters:\e[0m"
    echo -e "\t\e[1m-u\e[0m Union parameter (default: -u no). If (-u yes) is used, it will concatenate all contigs in an unique artificial contig in the additional output file. This artificial chromosome can be viewed with artemis software."
-   echo -e "\t\e[1m-k\e[0m Keep all files (default: -k no). If (-k yes) is used, all files are keeped including the aligments and log files."
+   echo -e "\t\e[1m-k\e[0m Keep all files (default: -k no). If (-k yes) is used, all files are keep including the alingments and log files."
    echo -e ""
    echo -e "\e[90mAUTHOR: Fabio Mota\e[0m"
    echo -e "\e[90mhttps://github.com/fabiogvb\e[0m"
@@ -156,7 +156,7 @@ if [[ "$union" =~ yes.* ]]; then
   echo  -e "Artificial unique contig GenBank file (can be whole viewed with Artemis): \e[1munion.$output_file\e[0m"
 fi
 
-#Cleaning the java zumbie process still running
+#Killing the java zombie process
 tokill=$(echo " $(ps aux | grep Mauve | grep $input_file )" | awk '{ print $2 } ')
 IFS=' '
 read -a processes <<< "$tokill"
@@ -167,7 +167,7 @@ done
 
 # Cleaning all unnecessary temporary files. Default (-k no)
 if [[ "$keep" =~ yes.* ]]; then
-  echo  -e "All files were keeped in the current directory or results_dir directory."
+  echo  -e "All files were kept in the current directory or results_dir directory."
 else
   rm -rf results_dir/ $reference_file.fasta $input_file.fasta *.genbank mauve.log seqretsplit.log
 fi
