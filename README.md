@@ -20,7 +20,9 @@
 **INSTALL INSTRUCTIONS**
 
 **Install dependecies in your operation system:**
+
 Tested on:
+
 Ubuntu Version: 22.04.5 LTS jammy,
 openjdk Version: 11.0.29,
 mauve-aligner Version: 2.4.0+4736-4,
